@@ -1,6 +1,6 @@
 import ij.plugin.PlugIn;
 
-import communication.v4l.Settings;
+import communication.Settings;
 
 public class Settings_ implements PlugIn {
 

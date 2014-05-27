@@ -81,8 +81,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import javax.swing.JOptionPane;
-
 /**
  * This class implements PlugInFrame and creates a frame that contains a list of the regions of
  * interest for the current images. Each region of interest is composed of a visual region and 

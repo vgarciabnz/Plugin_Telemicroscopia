@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 import util.StatusIndicator;
 
-import communication.v4l.CamServer;
+import communication.CamServer;
 
 /**
  * This plugin runs when the activate/deactivate camera button is pushed.

@@ -5,15 +5,27 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import communication.v4l.DefaultStreamGobbler;
+import javax.swing.JOptionPane;
 
+import communication.CamServer;
+import communication.DefaultStreamGobbler;
+
+/**
+ * This class provides a set of static methods to manage log synchronization. Sent logs are stored 
+ * in the log_sync directory under default log directory.
+ * @author ehas
+ *
+ */
 public class LogSync {
 	
 	/** Directory to store synchronized log files. */
 	private static final String LOG_SYNC_DIR = "log_sync";
 	
+	private static boolean unableToSend = false;
+	
 	/**
-	 * This method must be executed BEFORE any log file is created.
+	 * This method must be executed BEFORE any log file is created. It takes any log in the default log 
+	 * directory and send them to the email address specified in the configuration file. 
 	 */
 	public static void updatePendingLogs (){
 		
@@ -32,7 +44,7 @@ public class LogSync {
 	    	if(name.contains(".log.lck")){
 	    		file.delete();
 	        } else if (name.contains(".log")){
-	        	sendLogFile(file);
+	        	sendLogFile(file, false);
 	        		        	
 	        }
 	    }
@@ -50,18 +62,62 @@ public class LogSync {
     	logFile.delete();
 	}
 	
-	public static void sendLogFile (File attachment){
+	/** 
+	 * Send a file to the email address specified in the configuration file.
+	 * @param attachment File to send
+	 * @param onShutdownHook If it is on Shutdown routine or not.
+	 */
+	public static void sendLogFile (File attachment, boolean onShutdownHook){
 		sendLogFile(ConfigFile.getValue(ConfigFile.LOG_EMAIL), "[TM Log] " + 
-				ConfigFile.getValue(ConfigFile.LOG_NAME), attachment.getName(), attachment);
+				ConfigFile.getValue(ConfigFile.LOG_NAME), attachment.getName(), attachment, onShutdownHook);
 	}
 	
-	public static void sendLogFile (String destination, String subject, String body, File attachment) {
+	/**
+	 * Send a file with the parameters specified in the args.
+	 * @param destination Destination email address. Must have the form user@company.ext
+	 * @param subject Subject of the email
+	 * @param body Body of the email
+	 * @param attachment File attached to the email
+	 * @param onShutdownHook If it is on Shutdown routine or not.
+	 */
+	public static void sendLogFile (String destination, String subject, String body, File attachment, 
+			boolean onShutdownHook) {
+		
+		if(unableToSend){
+			return;
+		}
 		
 		// If mutt/postfix is not installed, send a warning message and return.
 		if (!isMuttInstalled()){
-			//TODO Send a warning message
+			if (!onShutdownHook) {
+				JOptionPane.showMessageDialog(null,
+						"El programa mutt no se encuentra instalado en el sistema.\n"
+								+ "No se han podido enviar los archivos.",
+						"Fallo enviando archivos", JOptionPane.ERROR_MESSAGE);
+			}
+			unableToSend = true;
 			return;
 		}
+		
+		// If the email address is incorrect, send a warning message and return.
+		if (!destination.contains("@")){
+			if (!onShutdownHook) {
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"La dirección de correo electrónico <"
+										+ destination
+										+ "> \nproporcionada en el fichero de configuración\n"
+										+ CamServer.configFile
+										+ " no es correcta.\n"
+										+ "No se han podido enviar los archivos.",
+								"Fallo enviando archivos",
+								JOptionPane.ERROR_MESSAGE);
+			}
+			unableToSend = true;
+			return;
+		}
+				
 		String command = "echo \"";
 		if (body != null){
 			command = command.concat(body);
@@ -76,7 +132,6 @@ public class LogSync {
 			command = command.concat(" -a " + attachment.getPath() + " --");
 		}
 		
-		//TODO check if the destination address is right
 		command = command.concat(" " + destination + "");
 		
 		try {
@@ -100,7 +155,7 @@ public class LogSync {
 		
 	}
 	
-	public static boolean isMuttInstalled () {
+	private static boolean isMuttInstalled () {
 		boolean isInstalled = false;
 		try {
 			Process checkMutt = Runtime.getRuntime().exec(new String[] {"mutt","-v"});
@@ -116,7 +171,6 @@ public class LogSync {
 				count++;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return isInstalled;

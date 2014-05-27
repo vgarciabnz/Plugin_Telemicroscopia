@@ -1,14 +1,9 @@
 package gestion;
 import ij.ImagePlus;
-import ij.WindowManager;
-import ij.gui.ImageCanvas;
-import ij.gui.ImageWindow;
 import ij.io.FileInfo;
 
-import java.awt.event.KeyListener;
 import java.io.File;
 
-import communication.v4l.FrameCamServer;
 import edition.ImageManager;
 import edition.RoiManager;
 

@@ -3,7 +3,7 @@ import ij.WindowManager;
 import ij.gui.ImageCanvas;
 import ij.plugin.PlugIn;
 
-import communication.v4l.CamServer;
+import communication.CamServer;
 
 /**
  * This plugin runs when the activate viewer button is pushed. If the CamServer

@@ -6,7 +6,7 @@ import java.util.logging.LogRecord;
 
 
 /**
- * This class extends Formatter class and is used to customized the AppTm4l log
+ * This class extends Formatter class and is used to customize the AppTm4l log
  * appearance
  * 
  * @author ehas

@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import communication.v4l.CamServer;
+import communication.CamServer;
 
 /**
  * This class extends the default java.util.logging.Logger class. The only

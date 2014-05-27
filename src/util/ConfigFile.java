@@ -5,9 +5,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * This class provides a set of static methods to manage the configuration file.
+ * @author ehas
+ *
+ */
 public class ConfigFile {
 	
-	// Relative path to the configuration file
+	/**
+	 * Relative path to the configuration file.
+	 */
 	public static String configFile;
 	
 	// These key strings must match with the name in the configuration file
@@ -18,13 +25,17 @@ public class ConfigFile {
 	public static final String SHOW_SURVEY_FORM = "showsurveyform";
 	
 	/**
-	 * Set the path to the configuration file
-	 * @param configFile
+	 * Set the path to the configuration file.
+	 * @param configFile Path to the configuration file
 	 */
 	public static void  setConfigFile (String configFile){
 		ConfigFile.configFile = configFile;
 	}
 	
+	/**
+	 * Get the path to the configuration file.
+	 * @return Path to the configuration file
+	 */
 	public static String getConfigFile () {
 		return configFile;
 	}

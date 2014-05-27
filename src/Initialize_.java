@@ -7,8 +7,8 @@ import java.util.Hashtable;
 
 import au.edu.jcu.v4l4j.exceptions.V4L4JException;
 
-import communication.v4l.CamServer;
-import communication.v4l.Settings;
+import communication.CamServer;
+import communication.Settings;
 
 /**
  * This plugin runs at the beginning of the telemicroscopy toolbar creation.

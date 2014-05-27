@@ -51,8 +51,8 @@ import javax.swing.UIManager;
 import util.ConfigFile;
 import util.StatusIndicator;
 
-import communication.v4l.CamServer;
-import communication.v4l.SurveyForm;
+import communication.CamServer;
+import communication.SurveyForm;
 
 /**
  * @author jerome.mutterer(at)ibmp.fr

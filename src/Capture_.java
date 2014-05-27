@@ -1,6 +1,6 @@
 import ij.plugin.PlugIn;
 
-import communication.v4l.CamServer;
+import communication.CamServer;
 
 /**
  * This plugin runs when the Capture button is pushed.

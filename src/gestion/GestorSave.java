@@ -2,7 +2,6 @@ package gestion;
 
 import ij.IJ;
 import ij.ImagePlus;
-import ij.WindowManager;
 import ij.io.FileInfo;
 import ij.io.FileSaver;
 import ij.io.Opener;
