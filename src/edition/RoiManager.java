@@ -1038,7 +1038,8 @@ public class RoiManager extends PlugInFrame implements ActionListener,
 				// pathName=pathFile.substring(path.lastIndexOf("\\")+1,path.lastIndexOf("."))+".tif";
 
 				// get a temp file
-				File tempFile = File.createTempFile(nameFileTMP, null);
+				//File tempFile = File.createTempFile(nameFileTMP, null);
+				File tempFile = File.createTempFile(nameFileTMP, null, new File("."));
 				// delete it, otherwise you cannot rename your existing zip to
 				// it.
 				tempFile.delete();
