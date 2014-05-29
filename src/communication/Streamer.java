@@ -18,5 +18,12 @@ public interface Streamer extends Runnable {
 	 * @return
 	 */
 	public String getBodyHTMLText();
+	
+	/**
+	 * This method checks if all the programs needed by the streamer are installed. If any of them
+	 * is not present, the method throws an Exception with the name of the program as message. 
+	 * @return true - All required programs are present
+	 */
+	public boolean isStreamerReady() throws Exception;
 
 }

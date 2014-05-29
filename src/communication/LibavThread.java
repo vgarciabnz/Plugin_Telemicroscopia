@@ -162,6 +162,11 @@ public class LibavThread implements Streamer {
 		}
 	}
 
+	public boolean isStreamerReady() throws Exception{
+		//TODO 
+		return true;
+	}
+	
 	/**
 	 * This method must be called before the thread exit. It destroys all
 	 * remaining processes.

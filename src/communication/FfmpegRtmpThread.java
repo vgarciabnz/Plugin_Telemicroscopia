@@ -37,7 +37,7 @@ import util.ProgressFrame;
 public class FfmpegRtmpThread implements Streamer {
 
 	private String encoderName = "ffmpeg";
-	private String serverName = "crtmpserver/crtmpserver/crtmpserver";
+	private String serverName = "crtmpserver";
 	private String serverConfigFile = "crtmpserver.lua";
 	private String playerName = "ffplay";
 
@@ -64,16 +64,19 @@ public class FfmpegRtmpThread implements Streamer {
 	 * notification.
 	 */
 	@Override
-	public void run() {
+	public void run(){
 
-		// Run avconv and avserver
 		try {
 			
 			if (!streamNameUpdated){
 				updateStreamName();				
 			}
 
-			startCrtmpserver(serverConfigFile);
+			try{
+				startCrtmpserver(serverConfigFile);				
+			} catch (IOException e){
+				throw new IOException("crtmpserver");
+			}
 			// startFfplay();
 
 			synchronized (this) {
@@ -160,14 +163,28 @@ public class FfmpegRtmpThread implements Streamer {
 				}
 			}
 
-			stopStreamProcesses();
-			disconnectClients();
-
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			stopStreamProcesses();
+			disconnectClients();
 		}
 	}
 
+	public boolean isStreamerReady() throws Exception{
+		try{
+			Runtime.getRuntime().exec(encoderName);
+		} catch (Exception e){
+			throw new Exception("ffmpeg");
+		}
+		try{
+			Runtime.getRuntime().exec(serverName);
+		} catch (Exception e){
+			throw new Exception("crtmpserver");
+		}
+		return true;
+	}
+	
 	/**
 	 * This method must be called before the thread exit. It destroys all
 	 * remaining processes.

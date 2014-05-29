@@ -34,7 +34,7 @@ public class ActivateCamera_ implements PlugIn {
 
 			try {
 				CamServer.start();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				if(e instanceof java.net.BindException){
 					JOptionPane.showMessageDialog(null,
 							"No se ha podido inicializar el servidor de internet.\n" +
@@ -42,12 +42,19 @@ public class ActivateCamera_ implements PlugIn {
 							"y que tienes los\npermisos necesarios para ocuparlo.",
 							"Fallo inicializando el servidor de internet",
 							JOptionPane.ERROR_MESSAGE);
+				} else if(e.getMessage() != null){
+					JOptionPane.showMessageDialog(null,
+							"No se ha podido iniciar el programa: " + e.getMessage() +".\n" +
+							"Comprueba que está instalado y es accesible.",
+							"Fallo inicializando el vídeo",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"No se ha podido inicializar el servidor de internet",
 							"Fallo inicializando el servidor de internet",
 							JOptionPane.ERROR_MESSAGE);
 				}
+				CamServer.stop();
 				if (CamServer.indicator != null) {
 					CamServer.indicator.setState(StatusIndicator.DOWN);
 				}

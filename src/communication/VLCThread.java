@@ -237,6 +237,11 @@ public class VLCThread implements Streamer {
 			}
 		}
 	}
+	
+	public boolean isStreamerReady() throws Exception{
+		//TODO 
+		return true;
+	}
 
 	/**
 	 * Stops the vlc process

@@ -232,7 +232,7 @@ public class CamServer extends WindowAdapter {
 	 * 
 	 * @throws IOException
 	 */
-	public static void start() throws IOException {
+	public static void start() throws Exception {
 
 		if (CamServer.indicator != null) {
 			CamServer.indicator.setState(StatusIndicator.PROGRESS);		
@@ -285,9 +285,8 @@ public class CamServer extends WindowAdapter {
 
 		// start the video capture thread
 		// create capture and server threads
-		// streamer = new LibavThread();
-		// streamer = new VLCThread();
 		streamer = new FfmpegRtmpThread();
+		streamer.isStreamerReady();
 		streamThread = new Thread(streamer, "Stream thread");
 
 		// Waits until the video streaming is started
@@ -322,7 +321,7 @@ public class CamServer extends WindowAdapter {
 
 		active = false;
 		// if the streaming thread is alive interrupt it and close it
-		if (streamThread.isAlive()) {
+		if (streamThread != null && streamThread.isAlive()) {
 			streamThread.interrupt();
 			try {
 				streamThread.join();
@@ -337,11 +336,11 @@ public class CamServer extends WindowAdapter {
 		// trying to execute serverSocket.accept()
 		try {
 			serverSocket.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// error closing the server socket
 		}
 
-		if (serverThread.isAlive()) {
+		if (serverThread != null && serverThread.isAlive()) {
 			serverThread.interrupt();
 			try {
 				serverThread.join();
@@ -362,7 +361,7 @@ public class CamServer extends WindowAdapter {
 		CamServer.stop();
 		try {
 			CamServer.start();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

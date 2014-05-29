@@ -272,7 +272,7 @@ public class Settings extends JFrame {
 					CamServer.stop();
 					try {
 						CamServer.start();
-					} catch (IOException e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
