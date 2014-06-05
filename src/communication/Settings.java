@@ -175,9 +175,7 @@ public class Settings extends JFrame {
 				} else {
 					videoOptionPanel = new StreamingConfig(videoDeviceFile);
 				}
-				// videoOptionPanel.setBounds(5, 75, 233, 292);
-				// videoOptionPanel.setLayout(null);
-				// contentPane.add(videoOptionPanel, BorderLayout.LINE_START);
+
 				// Set default settings
 				videoOptionPanel.setDefaultSettings();
 				scrollPaneWest.setViewportView(videoOptionPanel);
@@ -278,7 +276,7 @@ public class Settings extends JFrame {
 				}
 			}
 		});
-		// btnAceptar.setBounds(12, 12, 163, 25);
+
 		panel.add(btnAceptar);
 		contentPane.add(panel, BorderLayout.SOUTH);
 
@@ -465,8 +463,8 @@ public class Settings extends JFrame {
 
 			if (deviceFiles.size() == 0) {
 				System.err.println("Unable to detect any V4L device file\n"
-						+ "Set the 'test.device' property to a valid\nvideo "
-						+ "device file and run this program again ");
+						+ "Close the application, connect a valid V4L camera,\n" +
+						"and launch it again.");
 				System.exit(0);
 			}
 		}

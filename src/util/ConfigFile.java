@@ -23,6 +23,14 @@ public class ConfigFile {
 	public static final String LOG_EMAIL = "logemail";
 	public static final String FONT_SIZE = "fontsize";
 	public static final String SHOW_SURVEY_FORM = "showsurveyform";
+	public static final String PORT = "port";
+	public static final String QMIN = "qmin";
+	public static final String QMAX = "qmax";
+	public static final String GOP = "gop";
+	public static final String AUTHENTICATION = "authentication";
+	public static final String USER_NAME = "username";
+	public static final String USER_PASSWORD = "userpassword";
+	public static final String BPS = "bps";
 	
 	/**
 	 * Set the path to the configuration file.
@@ -67,6 +75,23 @@ public class ConfigFile {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * Return the int value associated to the key. If the value does not exist, or the value is not an int, 
+	 * it returns -1.
+	 * @param key
+	 * @return
+	 */
+	public static int getValueInt (String key){
+		String result = getValue (key);
+		int r;
+		try{
+			r = Integer.parseInt(result);
+		} catch (Exception e){
+			r = -1;
+		}
+		return r;
 	}
 	
 }

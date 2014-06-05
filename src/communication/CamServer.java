@@ -166,11 +166,12 @@ public class CamServer extends WindowAdapter {
 		
 		if(ConfigFile.configFile == null){
 			// Set the configuration file
-			ConfigFile.setConfigFile(configFile);			
+			ConfigFile.setConfigFile(configFile);
 		}
 		
-		if (ConfigFile.getValue(ConfigFile.LOG_SYNCHRONIZATION).equals("true")){
-			logSync = true;
+		readConfigFile();
+		
+		if (logSync){
 			// Check if there exist unsent logger files. If so, send them.
 			LogSync.updatePendingLogs();
 		}
@@ -210,7 +211,7 @@ public class CamServer extends WindowAdapter {
 					h.close();
 				}
 				
-				if(logSync == true){
+				if(logSync){
 					// Send the log file
 					LogSync.sendLogFile(new File(CamServer.logFileName), true);					
 				}
@@ -488,6 +489,35 @@ public class CamServer extends WindowAdapter {
 		}
 		String output = sb.toString();
 		return output;
+	}
+	
+	private static void readConfigFile(){
+		boolean ls = Boolean.parseBoolean(ConfigFile.getValue(ConfigFile.LOG_SYNCHRONIZATION));
+		CamServer.logSync = ls ? ls : CamServer.logSync;
+		
+		int port = ConfigFile.getValueInt(ConfigFile.PORT);
+		CamServer.port = (port >= 0) ? port : CamServer.port;
+		
+		int qmin = ConfigFile.getValueInt(ConfigFile.QMIN);
+		CamServer.qmin = (qmin >= 0) ? qmin : CamServer.qmin;
+		
+		int qmax = ConfigFile.getValueInt(ConfigFile.QMAX);
+		CamServer.qmax = (qmax >= 0) ? qmax : CamServer.qmax;
+
+		int gop = ConfigFile.getValueInt(ConfigFile.GOP);
+		CamServer.gop = (gop >= 0) ? gop : CamServer.gop;
+		
+		String bps = ConfigFile.getValue(ConfigFile.BPS);
+		CamServer.bps = (bps != null) ? bps : CamServer.bps;
+
+		boolean auth = Boolean.parseBoolean(ConfigFile.getValue(ConfigFile.AUTHENTICATION));
+		CamServer.authentication = auth ? auth : CamServer.authentication;
+
+		String userName = ConfigFile.getValue(ConfigFile.USER_NAME);
+		CamServer.userName = (userName != null) ? userName : CamServer.userName;
+		
+		String userPassword = ConfigFile.getValue(ConfigFile.USER_PASSWORD);
+		CamServer.userPassword = (userPassword != null) ? userPassword : CamServer.userPassword;
 	}
 
 }

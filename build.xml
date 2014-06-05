@@ -1,4 +1,4 @@
-<project name="Plugin_Telemicroscopia" default="main" basedir=".">
+<project name="Telemicroscopy_Plugin" default="main" basedir=".">
 	<description>
 		Plugin_Telemicroscopia: build file
 	</description>
@@ -8,30 +8,32 @@
 	<property name="pluginsDir" location="$basedir/../../AppTm4l/plugins/" />
 	<property name="user.name" value="ehas" />
 	
-	<target name="main" depends="compress" description="Main target">
+	<target name="main" depends="deploy" description="Main target">
 		<echo>
-			Building the .jar file
+			Building and deploying the .jar file
 		</echo>
 	</target>
-  
-	<target name="compress" depends="compile" description="generate the distribution">
-		<jar jarfile="Plugin_Telemicroscopia.jar">
-			<!-- zipgroupfileset dir="lib" includes="*.jar"/>-->
-	   		<fileset dir="${build}" includes="**/*.*" />
-	   		<manifest>
-	   			<attribute name="Built-By" value="${user.name}"/>
-	   		</manifest>	
-	   	</jar>
-		<copy file="Plugin_Telemicroscopia.jar" toDir="${pluginsDir}" />
+
+	<target name="deploy" depends="build" description="Copy the distribution to AppTm4l plugins directory">
+		<copy file="telemicroscopy_plugin.jar" toDir="${pluginsDir}" />
 		<copy toDir="${pluginsDir}">
 			<fileset dir="lib">
 				<include name="**.jar"/>
 				<exclude name="ij.jar"/>
 			</fileset>
 		</copy>	
+	</target>
+
+	<target name="build" depends="compile" description="Generate the distribution">
+		<jar jarfile="telemicroscopy_plugin.jar">
+	   		<fileset dir="${build}" includes="**/*.*" />
+	   		<manifest>
+	   			<attribute name="Built-By" value="${user.name}"/>
+	   		</manifest>	
+	   	</jar>
 	</target> 
  
-	<target name="compile">
+	<target name="compile" description="Compile the source code">
 		<javac srcdir="." destdir="bin">
 			<classpath>
 				<fileset dir="lib">

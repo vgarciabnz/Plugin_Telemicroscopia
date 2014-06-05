@@ -1,7 +1,9 @@
 package communication;
 
+import java.awt.GridBagConstraints;
 import java.util.Hashtable;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
 public class StreamingConfigFallback extends StreamingConfig {
@@ -17,16 +19,27 @@ public class StreamingConfigFallback extends StreamingConfig {
 	@Override
 	protected void initComboBoxes() {
 		this.textVideoResolution = new JTextField();
-		textVideoResolution.setBounds(101, 39, 103, 19);
-		this.add(textVideoResolution);
+		GridBagConstraints gbc1 = new GridBagConstraints();
+		gbc1.gridx = 1;
+		gbc1.gridy = 1;
+		gbc1.fill = GridBagConstraints.HORIZONTAL;
+		this.add(textVideoResolution,  gbc1);
+	
 
-		this.textInterval = new JTextField();
-		textInterval.setBounds(101, 91, 103, 19);
-		this.add(textInterval);
+		this.textInterval = new JTextField();	
+		GridBagConstraints gbc2 = new GridBagConstraints();
+		gbc2.gridx = 1;
+		gbc2.gridy = 2;
+		gbc2.fill = GridBagConstraints.HORIZONTAL;
+		this.add(textInterval, gbc2);
 
-		this.textCaptureResolution = new JTextField();
-		textCaptureResolution.setBounds(101, 265, 103, 19);
-		this.add(textCaptureResolution);
+		
+		this.textCaptureResolution = new JTextField();		
+		GridBagConstraints gbc3 = new GridBagConstraints();
+		gbc3.gridx = 1;
+		gbc3.gridy = 9;
+		gbc3.fill = GridBagConstraints.HORIZONTAL;
+		this.add(textCaptureResolution, gbc3);
 	}
 
 	@Override
