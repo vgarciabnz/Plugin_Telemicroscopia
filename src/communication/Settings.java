@@ -600,10 +600,12 @@ public class Settings extends JFrame {
 
 		Hashtable<String, String> settings = new Hashtable<String, String>();
 
-		DiscreteResolution[] resolutions = listAvailableResolutions(dev);
+		DiscreteResolution[] resolutions;
 
 		if (!needFallbackMode(dev)) {
 
+			resolutions = listAvailableResolutions(dev);	
+			
 			DiscreteResolution defaultVideoResolution = resolutions[0];
 			DiscreteResolution defaultCaptureResolution = resolutions[resolutions.length - 1];
 
@@ -675,7 +677,11 @@ public class Settings extends JFrame {
 	 * @return true if fallback mode is needed, false if not
 	 */
 	public static boolean needFallbackMode(String dev) {
-		DiscreteResolution[] resolutions = listAvailableResolutions(dev);
-		return (resolutions == null || listAvailableIntervals(resolutions[0]) == null);
+		try {
+			DiscreteResolution[] resolutions = listAvailableResolutions(dev);
+			return (resolutions == null || listAvailableIntervals(resolutions[0]) == null);
+		} catch (Exception e){
+			return true;
+		}
 	}
 }
