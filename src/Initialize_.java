@@ -5,10 +5,11 @@ import ij.plugin.PlugIn;
 import java.io.IOException;
 import java.util.Hashtable;
 
+import settings.Settings;
+
 import au.edu.jcu.v4l4j.exceptions.V4L4JException;
 
 import communication.CamServer;
-import communication.Settings;
 
 /**
  * This plugin runs at the beginning of the telemicroscopy toolbar creation.

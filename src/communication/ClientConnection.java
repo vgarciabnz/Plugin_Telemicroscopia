@@ -31,6 +31,7 @@ import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 
+import settings.Settings;
 import util.Dictionary;
 import au.edu.jcu.v4l4j.Control;
 import au.edu.jcu.v4l4j.ControlList;

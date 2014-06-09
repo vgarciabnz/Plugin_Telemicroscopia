@@ -1,4 +1,3 @@
-import gestion.GestorSave;
 import ij.ImagePlus;
 import ij.WindowManager;
 import ij.macro.MacroRunner;
@@ -6,8 +5,10 @@ import ij.plugin.PlugIn;
 
 import javax.swing.JOptionPane;
 
-import edition.ImageManager;
-import edition.RoiManager;
+
+import file.edition.ImageManager;
+import file.edition.RoiManager;
+import file.io.TPSaver;
 
 /**
  * This plugin runs when the close button is pushed. This is the right way to
@@ -28,7 +29,7 @@ public class Close_ implements PlugIn {
 					JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (result) {
 				case 0:
-					GestorSave saver = new GestorSave();
+					TPSaver saver = new TPSaver();
 					saver.saveAsTifInZip(current, false);
 				case 1:
 					new MacroRunner("run(\"ForceClose \")\n");

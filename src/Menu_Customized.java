@@ -1,4 +1,4 @@
-import gestion.GestorSave;
+import file.io.TPSaver;
 import ij.IJ;
 import ij.ImagePlus;
 import ij.Macro;
@@ -47,6 +47,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.UIDefaults;
 import javax.swing.UIManager;
+
 
 import util.ConfigFile;
 import util.StatusIndicator;
@@ -182,7 +183,7 @@ public class Menu_Customized implements PlugIn, ActionListener {
 								JOptionPane.YES_NO_OPTION);
 						switch(resultSave){
 						case 0:
-							GestorSave saver = new GestorSave();
+							TPSaver saver = new TPSaver();
 							saver.saveAsTifInZip(current, false);
 							new MacroRunner("run(\"ForceClose \")\n");
 						case 1:

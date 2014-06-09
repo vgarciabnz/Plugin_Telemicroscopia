@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import javax.swing.JOptionPane;
 
 import communication.CamServer;
-import communication.DefaultStreamGobbler;
 
 /**
  * This class provides a set of static methods to manage log synchronization. Sent logs are stored 

@@ -1,6 +1,6 @@
+import settings.Settings;
 import ij.plugin.PlugIn;
 
-import communication.Settings;
 
 public class Settings_ implements PlugIn {
 

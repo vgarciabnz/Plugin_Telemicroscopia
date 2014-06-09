@@ -1,9 +1,10 @@
-import gestion.GestorSave;
+import file.io.TPSaver;
 import ij.ImagePlus;
 import ij.WindowManager;
 import ij.plugin.PlugIn;
 
 import javax.swing.JOptionPane;
+
 
 /**
  * This plugin runs when the Save button is pressed. If no image is opened, it
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * 
  */
 public class Save_ implements PlugIn {
-	private static GestorSave saver = new GestorSave();
+	private static TPSaver saver = new TPSaver();
 
 	public void run(String arg) {
 		ImagePlus imp = WindowManager.getCurrentImage();

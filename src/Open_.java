@@ -1,7 +1,7 @@
-import edition.ImageManager;
-import edition.RoiManager;
-import gestion.GestorOpen;
-import gestion.GestorSave;
+import file.edition.ImageManager;
+import file.edition.RoiManager;
+import file.io.TPOpener;
+import file.io.TPSaver;
 import ij.ImagePlus;
 import ij.WindowManager;
 import ij.plugin.Commands;
@@ -9,9 +9,10 @@ import ij.plugin.PlugIn;
 
 import javax.swing.JOptionPane;
 
+
 public class Open_ implements PlugIn {
 
-	private static GestorOpen gestorOpen = new GestorOpen();
+	private static TPOpener gestorOpen = new TPOpener();
 
 	public void run(String arg) {
 
@@ -25,7 +26,7 @@ public class Open_ implements PlugIn {
 					JOptionPane.YES_NO_CANCEL_OPTION);
 			switch (result) {
 			case 0:
-				GestorSave saver = new GestorSave();
+				TPSaver saver = new TPSaver();
 				saver.saveAsTifInZip(imp_old, false);
 			case 1:
 				// Close everything related to the previous session

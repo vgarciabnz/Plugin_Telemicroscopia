@@ -1,5 +1,5 @@
-import edition.ImageManager;
-import edition.RoiManager;
+import file.edition.ImageManager;
+import file.edition.RoiManager;
 import ij.ImagePlus;
 import ij.WindowManager;
 import ij.plugin.PlugIn;
